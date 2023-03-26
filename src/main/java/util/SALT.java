@@ -1,41 +1,24 @@
 package util;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Random;
 
-/**
- * Servlet implementation class SALT
- */
-@WebServlet("/SALT")
-public class SALT extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SALT() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+public class SALT {
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 引数で受け取った数字の桁数分のランダムな文字列を生成する。
+	 * @param len 生成するランダムな文字列の桁数
+	 * @return ランダムな文字列
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+	public static String getSalt(int len){
+		Random rnd = new Random();
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+		final String CHARACTORS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < len; i++){
+			sb.append(CHARACTORS.charAt(rnd.nextInt(CHARACTORS.length())));
+		}
 
+		return sb.toString();
+	}
 }
