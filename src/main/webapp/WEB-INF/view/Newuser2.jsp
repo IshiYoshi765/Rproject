@@ -14,7 +14,7 @@
 	%>
 	名前：<%=account.getName() %><br>
 	メール：<%=account.getMail() %><br>
-	電話番号：<%=account.getTell() %><br>
+	電話番号：<%=account.getTel() %><br>
 	パスワード：********************<br>
 
 	

@@ -4,17 +4,17 @@ public class user {
 	private int id;
 	private String name;
 	private String mail;
-	private String tell; 
+	private String tel; 
 	private String salt;
 	private String password;
 	private String hashedPassword;
 	
-	public user(int id,String name,String mail,String tell,String salt,String password,String hashedPassword) {
+	public user(int id,String name,String mail,String tel,String salt,String password,String hashedPassword) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.mail = mail;
-		this.name = tell;
+		this.name = tel;
 		this.salt = salt;
 		this.password = password;
 		this.hashedPassword = hashedPassword;
@@ -37,11 +37,11 @@ public class user {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public String getTell() {
-		return tell;
+	public String getTel() {
+		return tel;
 	}
-	public void setTell(String tell) {
-		this.tell = tell;
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 	public String getSalt() {
 		return salt;
@@ -62,5 +62,6 @@ public class user {
 	public void setHashedPassword(String hashedPassword) {
 		this.hashedPassword = hashedPassword;
 	}
+
 	
 }

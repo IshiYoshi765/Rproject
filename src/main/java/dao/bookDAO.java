@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import dto.user;
@@ -47,7 +48,7 @@ public class bookDAO {
 				){
 			pstmt.setString(1, account.getName());
 			pstmt.setString(2, account.getMail());
-			pstmt.setString(3, account.getTell());
+			pstmt.setString(3, account.getTel());
 			pstmt.setString(4, salt);
 			pstmt.setString(5, hashedPw);
 
@@ -61,5 +62,31 @@ public class bookDAO {
 			System.out.println(result + "件更新しました。");
 		}
 		return result;
+	}
+	
+	
+	// メールアドレスを元にソルトを取得
+	public static String getSalt(String mail) {
+		String sql = "SELECT salt FROM users WHERE mail = ?";
+		
+		try (
+				Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, mail);
+
+			try (ResultSet rs = pstmt.executeQuery()){
+				
+				if(rs.next()) {
+					String salt = rs.getString("salt");
+					return salt;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

@@ -19,7 +19,7 @@
 		<form action="Newuser2" method="post">
 			名前：<input type="text" name="name" value="<%=ac.getName()%>"required><br>
 			メール：<input type="email" name="email" value="<%=ac.getMail()%>"required><br>
-			電話番号：<input type="tel" name="tel" value="<%=ac.getTell()%>"required><br>
+			電話番号：<input type="tel" name="tel" value="<%=ac.getTel()%>"required><br>
 			パスワード：<input type="password" name="pw"required><br>
 			<input type="submit" value="登録">
 		</form>
