@@ -24,6 +24,12 @@ public class user {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getMail() {
 		return mail;
@@ -48,12 +54,6 @@ public class user {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getHashedPassword() {
