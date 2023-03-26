@@ -1,41 +1,68 @@
 package util;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 
-/**
- * Servlet implementation class PW
- */
-@WebServlet("/PW")
-public class PW extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PW() {
-        super();
-        // TODO Auto-generated constructor stub
+public class PW {
+    /** パスワードを安全にするためのアルゴリズム */
+    private static final String ALGORITHM = "PBKDF2WithHmacSHA256";
+    /** ストレッチング回数 */
+    private static final int ITERATION_COUNT = 15043;
+    /** 生成される鍵の長さ */
+    private static final int KEY_LENGTH = 256;
+
+    //引数で受け取った文字列をソルトとしてbyte配列に変換
+    private static byte[] getHashedSalt(String salt) {
+        MessageDigest messageDigest;
+        try {
+            messageDigest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        messageDigest.update(salt.getBytes());
+        return messageDigest.digest();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    public static String getSafetyPassword(String password, String salt) {
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+        char[] passCharAry = password.toCharArray();
 
+        //ユーザIDをソルトとしてbyte配列に変換
+        byte[] hashedSalt = getHashedSalt(salt);
+
+        /*第1引数：パスワード
+		  第2引数：ソルト
+		  第3引数：ストレッチング回数
+		  第4引数：生成文字列長
+        */
+        PBEKeySpec keySpec = new PBEKeySpec(passCharAry, hashedSalt, ITERATION_COUNT, KEY_LENGTH);
+
+        //秘密鍵生成のアルゴリズムを定義
+        SecretKeyFactory skf;
+        try {
+	            skf = SecretKeyFactory.getInstance(ALGORITHM);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
+        //秘密鍵の生成
+        SecretKey secretKey;
+        try {
+            secretKey = skf.generateSecret(keySpec);
+        } catch (InvalidKeySpecException e) {
+            throw new RuntimeException(e);
+        }
+        byte[] passByteAry = secretKey.getEncoded();
+
+        // 生成されたバイト配列を16進数の文字列に変換
+        StringBuilder sb = new StringBuilder(64);
+        for (byte b : passByteAry) {
+            sb.append(String.format("%02x", b & 0xff));		//16進数2桁0埋めでbyte bと11111111のANDを取る
+        }
+        return sb.toString();
+    }
 }
