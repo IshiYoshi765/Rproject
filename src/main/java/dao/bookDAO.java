@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 package dao;
 
 import java.net.URI;
@@ -125,4 +124,3 @@ public class bookDAO {
 	}
 	
 }
->>>>>>> df772116e4b8e4eeb83cd341d3014f21a21004d5
