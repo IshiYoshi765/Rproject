@@ -14,7 +14,7 @@ public class user {
 		this.id = id;
 		this.name = name;
 		this.mail = mail;
-		this.name = tel;
+		this.tel = tel;
 		this.salt = salt;
 		this.password = password;
 		this.hashedPassword = hashedPassword;

@@ -89,4 +89,37 @@ public class bookDAO {
 		}
 		return null;
 	}
+	
+	
+	// ログイン処理
+	public static user login(String mail, String hashedPw) {
+		String sql = "SELECT * FROM users WHERE mail = ? AND password = ?";
+		
+		try (
+				Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, mail);
+			pstmt.setString(2, hashedPw);
+
+			try (ResultSet rs = pstmt.executeQuery()){
+				
+				if(rs.next()) {
+					int id = rs.getInt("id");
+					String name = rs.getString("name");
+					String salt = rs.getString("salt");
+					String tel = rs.getNString("tel");
+					
+					return new user(id, name, mail, tel, salt, null, null);
+				}
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 }
