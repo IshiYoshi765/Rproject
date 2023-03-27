@@ -19,7 +19,6 @@
 		<input type="submit" value="ログイン">
 	</form>
 	<a href="Newuser">新規ユーザー登録</a>
-	<a href="Adminlogin">管理者ログイン</a>
 	<%
 		} else {
 	%>
@@ -29,7 +28,6 @@
 		<input type="submit" value="ログイン">
 	</form>
 	<a href="Newuser">新規ユーザー登録</a>
- 	<a href="Adminlogin">管理者ログイン</a>
 
 	<%
 		}
