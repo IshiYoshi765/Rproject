@@ -21,4 +21,5 @@ public class SALT {
 
 		return sb.toString();
 	}
+
 }
