@@ -109,7 +109,7 @@ public class bookDAO {
 					int id = rs.getInt("id");
 					String name = rs.getString("name");
 					String salt = rs.getString("salt");
-					String tel = rs.getNString("tel");
+					String tel = rs.getString("tel");
 					
 					return new user(id, name, mail, tel, salt, null, null);
 				}
