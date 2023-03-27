@@ -21,9 +21,5 @@ public class SALT {
 
 		return sb.toString();
 	}
-	
-	public static void main(String[] args) {
-		String salt = SALT.getSalt(10);
-		System.out.println(salt);
-	}
+
 }

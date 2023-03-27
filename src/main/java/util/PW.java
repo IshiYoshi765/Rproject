@@ -11,7 +11,7 @@ public class PW {
     /** パスワードを安全にするためのアルゴリズム */
     private static final String ALGORITHM = "PBKDF2WithHmacSHA256";
     /** ストレッチング回数 */
-    private static final int ITERATION_COUNT = 10000;
+    private static final int ITERATION_COUNT = 15043;
     /** 生成される鍵の長さ */
     private static final int KEY_LENGTH = 256;
 
@@ -65,10 +65,5 @@ public class PW {
         }
         return sb.toString();
     }
-    
-    public static void main(String[] args) {
-		String pw = "morijyobi";
-		String salt = "aodsifhosa";
-	String hashedPw = PW.getSafetyPassword(pw, salt);
-    }
-    }
+}
+
