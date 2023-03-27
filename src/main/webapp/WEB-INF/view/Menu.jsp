@@ -8,6 +8,6 @@
 <title>ホーム</title>
 </head>
 <body>
-
+	<a href="Search">商品検索</a><br>
 </body>
 </html>
