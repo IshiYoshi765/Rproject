@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import dto.book;
 import dto.user;
 import util.PW;
 import util.SALT;
@@ -120,6 +121,33 @@ public class bookDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	
+	public static int updateBook(book B) {
+		
+		String sql = "UPDATE book SET  id = ? ,name = ? ,author = ? ,publisher = ? where isbn = ? ";
+		// return用の変数
+		int result = 0;
+		
+		try (
+				Connection con = getConnection();	// DB接続
+				PreparedStatement pstmt = con.prepareStatement(sql);			// 構文解析
+				){
+			pstmt.setInt(1, B.getId());
+			pstmt.setString(2, B.getName());
+			pstmt.setString(3, B.getAuthor());
+			pstmt.setString(4, B.getPublisher());
+			pstmt.setInt(5, B.getISBN());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} finally {
+			System.out.println(result + "件編集しました。");
+		}
+		return result;
 	}
 	
 }
