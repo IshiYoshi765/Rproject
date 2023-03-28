@@ -43,7 +43,7 @@ public class RegisterBookdao {
 			pstmt.setString(5, book.getAuthor());
 			pstmt.setString(6, book.getIllustrator());
 			pstmt.setInt(7, book.getCategory_id());
-			pstmt.setInt(8, book.getBooktype());
+			pstmt.setString(8, book.getBooktype());
 			pstmt.setString(9, book.getImagepass());
 
 
@@ -79,7 +79,7 @@ public class RegisterBookdao {
 					String author = rs.getString("author");
 					String illustrator = rs.getString("illustrator");
 					int category_id = rs.getInt("category_id");
-					int booktype = rs.getInt("booktype");
+					String booktype = rs.getString("booktype");
 					String imagepass = rs.getString("imagepass");
 					
 					
@@ -94,4 +94,28 @@ public class RegisterBookdao {
 		}
 		return list;
 	}
+	
+	public static int DeleteBook(int bookid) {
+		
+		String sql = "DELETE FROM book WHERE bookid = ?";
+		int result = 0;
+
+		try (
+				Connection con = getConnection();	// DB接続
+				PreparedStatement pstmt = con.prepareStatement(sql);			// 構文解析
+				){
+			
+			pstmt.setInt(1, bookid);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} finally {
+			System.out.println(result + "件削除しました。");
+		}
+		return  result;
+	}
+	
 }
