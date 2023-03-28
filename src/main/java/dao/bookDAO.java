@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import dto.bookDTO;
 import dto.user;
 import util.PW;
@@ -127,7 +128,7 @@ public class bookDAO {
 	
 	public static int updateBook(bookDTO B) {
 		
-		String sql = "UPDATE book SET  id = ? ,name = ? ,author = ? ,publisher = ? where isbn = ? ";
+		String sql = "UPDATE book SET  bookid = ? ,bookname = ? ,publisher = ?,author = ?,illustrator = ?,booktype = ?  where isbn = ? ";
 		// return用の変数
 		int result = 0;
 		
@@ -135,12 +136,16 @@ public class bookDAO {
 				Connection con = getConnection();	// DB接続
 				PreparedStatement pstmt = con.prepareStatement(sql);			// 構文解析
 				){
-			pstmt.setInt(1, B.getId());
-			pstmt.setString(2, B.getName());
-			pstmt.setString(3, B.getAuthor());
+		
+			pstmt.setInt(1, B.getBookid());
+			pstmt.setString(2, B.getIsbn());
+			pstmt.setString(3, B.getBookname());
 			pstmt.setString(4, B.getPublisher());
-			pstmt.setInt(5, B.getISBN());
+			pstmt.setString(5, B.getAuthor());
+			pstmt.setString(6, B.getIllustrator());
+			pstmt.setString(7, B.getBooktype());
 			result = pstmt.executeUpdate();
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
@@ -153,13 +158,13 @@ public class bookDAO {
 	
 
 	// LIKEを使ったキーワード検索(部分一致)
-	public static List<book> searchbookByName(String keyword){
+	public static List<bookDTO> searchbookByName(String keyword){
 		
 		// 実行するSQL
 		String sql = "SELECT * FROM kadai20product WHERE product_name  LIKE ?";
 		
 		// 返却用のLt istインスタンス
-		List<book> result = new ArrayList<>();
+		List<bookDTO> result = new ArrayList<>();
 				
 		try (
 				Connection con = getConnection();
@@ -184,11 +189,11 @@ public class bookDAO {
 					String author = rs.getString("author");
 					String illustrator = rs.getString("illustrator");
 					int category_id = rs.getInt("category_id");
-					int booktype = rs.getInt("booktype");
+					String booktype = rs.getString("booktype");
 					String imagepass = rs.getString("imagepass");
 
 					// n件目のインスタンスを作成
-					book book = new book(bookid, isbn, bookname, publisher, author, illustrator, category_id, booktype, imagepass);
+					bookDTO book = new bookDTO(bookid, isbn, bookname, publisher, author, illustrator, category_id, booktype, imagepass);
 					
 					// インスタンスをListに追加
 					result.add(book);

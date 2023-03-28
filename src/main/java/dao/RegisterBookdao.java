@@ -37,13 +37,13 @@ public class RegisterBookdao {
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				){
 			pstmt.setInt(1, book.getBookid());
-			pstmt.setInt(2, book.getIsbn());
+			pstmt.setString(2, book.getIsbn());
 			pstmt.setString(3, book.getBookname());
 			pstmt.setString(4, book.getPublisher());
 			pstmt.setString(5, book.getAuthor());
 			pstmt.setString(6, book.getIllustrator());
-			pstmt.setString(7, book.getCategory_id());
-			pstmt.setString(8, book.getBooktype());
+			pstmt.setInt(7, book.getCategory_id());
+			pstmt.setInt(8, book.getBooktype());
 			pstmt.setString(9, book.getImagepass());
 
 
@@ -73,13 +73,13 @@ public class RegisterBookdao {
 			try(ResultSet rs = pstmt.executeQuery()){
 				while(rs.next()) {
 					int bookid = rs.getInt("bookid");
-					int isbn = rs.getInt("isbn");
+					String isbn = rs.getString("isbn");
 					String bookname = rs.getString("bookname");
 					String publisher = rs.getString("publisher");
 					String author = rs.getString("author");
 					String illustrator = rs.getString("illustrator");
-					String category_id = rs.getString("category_id");
-					String booktype = rs.getString("booktype");
+					int category_id = rs.getInt("category_id");
+					int booktype = rs.getInt("booktype");
 					String imagepass = rs.getString("imagepass");
 					
 					
