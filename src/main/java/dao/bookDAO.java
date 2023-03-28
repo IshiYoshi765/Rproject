@@ -1,3 +1,4 @@
+
 package dao;
 
 import java.net.URI;
@@ -94,6 +95,65 @@ public class bookDAO {
 	}
 	
 	
+	// ログイン処理
+	public static user login(String mail, String hashedPw) {
+		String sql = "SELECT * FROM users WHERE mail = ? AND password = ?";
+		
+		try (
+				Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, mail);
+			pstmt.setString(2, hashedPw);
+
+			try (ResultSet rs = pstmt.executeQuery()){
+				
+				if(rs.next()) {
+					int id = rs.getInt("id");
+					String name = rs.getString("name");
+					String salt = rs.getString("salt");
+					String tel = rs.getString("tel");
+					
+					return new user(id, name, mail, tel, salt, null, null);
+				}
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+
+	public static int updateBook(bookDTO B) {
+		
+		String sql = "UPDATE book SET  id = ? ,name = ? ,author = ? ,publisher = ? where isbn = ? ";
+		// return用の変数
+		int result = 0;
+		
+		try (
+				Connection con = getConnection();	// DB接続
+				PreparedStatement pstmt = con.prepareStatement(sql);			// 構文解析
+				){
+			pstmt.setInt(1, B.getId());
+			pstmt.setString(2, B.getName());
+			pstmt.setString(3, B.getAuthor());
+			pstmt.setString(4, B.getPublisher());
+			pstmt.setInt(5, B.getISBN());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} finally {
+			System.out.println(result + "件編集しました。");
+		}
+		return result;
+	}
+	
+	
 	// LIKEを使ったキーワード検索(部分一致)
 	public static List<book> searchbookByName(String keyword){
 		
@@ -130,7 +190,7 @@ public class bookDAO {
 					String imagepass = rs.getString("imagepass");
 
 					// n件目のインスタンスを作成
-					book book = new book(bookid, isbn ,bookname, publisher, author, illustrator, category_id, booktype , imagepass);
+					book book = new book(bookid, isbn, bookname, publisher, author, illustrator, category_id, booktype, imagepass);
 					
 					// インスタンスをListに追加
 					result.add(book);
