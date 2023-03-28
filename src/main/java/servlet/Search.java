@@ -41,7 +41,7 @@ public class Search extends HttpServlet {
 		List<book>LibList=bookDAO.searchbookByName(keyword);
 		request.setAttribute("list", LibList);
 
-			String view = "WEB-INF/view/search.jsp";
+			String view = "WEB-INF/view/search2.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 			dispatcher.forward(request, response);
 	}
