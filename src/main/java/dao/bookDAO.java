@@ -1,3 +1,4 @@
+
 package dao;
 
 import java.net.URI;
@@ -7,7 +8,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
+import java.util.List;
 import dto.bookDTO;
 import dto.user;
 import util.PW;
@@ -123,7 +125,6 @@ public class bookDAO {
 		return null;
 	}
 	
-	
 	public static int updateBook(bookDTO B) {
 		
 		String sql = "UPDATE book SET  id = ? ,name = ? ,author = ? ,publisher = ? where isbn = ? ";
@@ -150,4 +151,57 @@ public class bookDAO {
 		return result;
 	}
 	
+
+	// LIKEを使ったキーワード検索(部分一致)
+	public static List<book> searchbookByName(String keyword){
+		
+		// 実行するSQL
+		String sql = "SELECT * FROM kadai20product WHERE product_name  LIKE ?";
+		
+		// 返却用のLt istインスタンス
+		List<book> result = new ArrayList<>();
+				
+		try (
+				Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			
+			// %や_はここで文字列結合する。そうすると'%keyword%'となる。
+			pstmt.setString(1, "%" + keyword + "%");
+			
+			// SQL実行！
+			// ResultSetもcloseする必要があるのでtry-with-resources文を使う
+			try (ResultSet rs = pstmt.executeQuery()){
+				
+				// next()がfalseを返すまでループ
+				while(rs.next()) {
+
+					// n行目のデータを取得
+					int bookid = rs.getInt("bookid");
+					String isbn = rs.getString("isbn");
+					String bookname = rs.getString("bookname");
+					String publisher = rs.getString("publisher");
+					String author = rs.getString("author");
+					String illustrator = rs.getString("illustrator");
+					int category_id = rs.getInt("category_id");
+					int booktype = rs.getInt("booktype");
+					String imagepass = rs.getString("imagepass");
+
+					// n件目のインスタンスを作成
+					book book = new book(bookid, isbn, bookname, publisher, author, illustrator, category_id, booktype, imagepass);
+					
+					// インスタンスをListに追加
+					result.add(book);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+
+		// Listを返却する。0件の場合は空のListが返却される。
+		return result;
+	}
 }
