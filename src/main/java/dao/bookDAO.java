@@ -160,7 +160,7 @@ public class bookDAO {
 		// 実行するSQL
 		String sql = "SELECT * FROM kadai20product WHERE product_name  LIKE ?";
 		
-		// 返却用のListインスタンス
+		// 返却用のLt istインスタンス
 		List<book> result = new ArrayList<>();
 				
 		try (
