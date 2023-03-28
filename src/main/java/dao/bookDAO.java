@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import dto.book;
+import dto.bookDTO;
 import dto.user;
 import util.PW;
 import util.SALT;
@@ -124,7 +124,7 @@ public class bookDAO {
 	}
 	
 	
-	public static int updateBook(book B) {
+	public static int updateBook(bookDTO B) {
 		
 		String sql = "UPDATE book SET  id = ? ,name = ? ,author = ? ,publisher = ? where isbn = ? ";
 		// return用の変数
