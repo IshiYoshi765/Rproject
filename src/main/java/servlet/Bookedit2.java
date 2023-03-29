@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.bookDAO;
-import dto.book;
+import dto.bookDTO;
 
 /**
  * Servlet implementation class Bookedit2
@@ -35,23 +35,28 @@ public class Bookedit2 extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		// フォーム入力内容の取得
-		int id = Integer.parseInt(request.getParameter("ID"));
-		String name = request.getParameter("name");
-		String author = request.getParameter("author");
+		int bookid = Integer.parseInt(request.getParameter("ID"));
+		String ISBN = request.getParameter("ISBN");
+		String bookname = request.getParameter("bookname");
 		String publisher = request.getParameter("publisher");
-		int ISBN = Integer.parseInt(request.getParameter("ISBN"));
+		String author = request.getParameter("author");
+		String illustrator = request.getParameter("illustrator");
+		int category_id = Integer.parseInt(request.getParameter("category_id"));
+		String booktype = request.getParameter("booktype");
+		String imagepass = request.getParameter("imagepass");
+
 		// 入力された情報を元にインスタンスを生成
-		book book = new book(id, name, author, publisher,ISBN);
+		bookDTO book = new bookDTO(bookid, ISBN, bookname, publisher,author,illustrator, category_id, booktype, imagepass);
 		
 		// SQL実行
 		int result = bookDAO.updateBook(book);
 		
 		if(result == 1) {
-			String view = "WEB-INF/view/Bookeditsuccess.jsp";
+			String view = "WEB-INF/view/Bookedit2.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 			dispatcher.forward(request, response);
 		} else {
-			String view = "WEB-INF/view/Bookeditfail.jsp";
+			String view = "WEB-INF/view/Bookedit2fail.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 			dispatcher.forward(request, response);
 		}

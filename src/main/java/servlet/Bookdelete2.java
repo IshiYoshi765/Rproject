@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,20 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.bookDAO;
-import dto.bookDTO;
+import dao.RegisterBookdao;
 
 /**
- * Servlet implementation class RegisterStudentServlet
+ * Servlet implementation class Bookdelete2
  */
-@WebServlet("/Search")
-public class Search extends HttpServlet {
+@WebServlet("/Bookdelete2")
+public class Bookdelete2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Search() {
+    public Bookdelete2() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,18 +30,21 @@ public class Search extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 文字コードの設定
 		request.setCharacterEncoding("UTF-8");
 		
-		// フォーム入力内容の取得
-		String keyword = request.getParameter("bookname");
-
-		List<bookDTO>LibList=bookDAO.searchbookByName(keyword);
-		request.setAttribute("list", LibList);
-
-			String view = "WEB-INF/view/search2.jsp";
+		int bookid = Integer.parseInt(request.getParameter("bookid"));
+		
+		int result = RegisterBookdao.DeleteBook(bookid);
+		
+		if(result == 1) {
+			String view = "WEB-INF/view/Bookdeletesuccess.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 			dispatcher.forward(request, response);
+		} else {
+			String view = "WEB-INF/view/Bookdeletefail.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+			dispatcher.forward(request, response);
+		}
 	}
 
 	/**

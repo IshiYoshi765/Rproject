@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import dto.bookDTO;
 import dto.user;
 import util.PW;
@@ -127,7 +128,7 @@ public class bookDAO {
 	
 	public static int updateBook(bookDTO B) {
 		
-		String sql = "UPDATE book SET  id = ? ,name = ? ,author = ? ,publisher = ? where isbn = ? ";
+		String sql = "UPDATE book SET  bookid = ? ,bookname = ? ,publisher = ?,author = ?,illustrator = ?,booktype = ?  where isbn = ? ";
 		// return用の変数
 		int result = 0;
 		
@@ -135,12 +136,16 @@ public class bookDAO {
 				Connection con = getConnection();	// DB接続
 				PreparedStatement pstmt = con.prepareStatement(sql);			// 構文解析
 				){
-			pstmt.setInt(1, B.getId());
-			pstmt.setString(2, B.getName());
-			pstmt.setString(3, B.getAuthor());
+		
+			pstmt.setInt(1, B.getBookid());
+			pstmt.setString(2, B.getIsbn());
+			pstmt.setString(3, B.getBookname());
 			pstmt.setString(4, B.getPublisher());
-			pstmt.setInt(5, B.getISBN());
+			pstmt.setString(5, B.getAuthor());
+			pstmt.setString(6, B.getIllustrator());
+			pstmt.setString(7, B.getBooktype());
 			result = pstmt.executeUpdate();
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
@@ -183,7 +188,11 @@ public class bookDAO {
 					String publisher = rs.getString("publisher");
 					String author = rs.getString("author");
 					String illustrator = rs.getString("illustrator");
+<<<<<<< HEAD
 					String category_id = rs.getString("category_id");
+=======
+					int category_id = rs.getInt("category_id");
+>>>>>>> 05624700cae3defec36ab6b5ecf55955e75a737f
 					String booktype = rs.getString("booktype");
 					String imagepass = rs.getString("imagepass");
 
