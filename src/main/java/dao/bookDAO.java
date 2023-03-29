@@ -8,7 +8,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
+import java.util.List;
+import dto.bookDTO;
 import dto.user;
 import util.PW;
 import util.SALT;
@@ -123,4 +125,84 @@ public class bookDAO {
 		return null;
 	}
 	
+	public static int updateBook(bookDTO B) {
+		
+		String sql = "UPDATE book SET  id = ? ,name = ? ,author = ? ,publisher = ? where isbn = ? ";
+		// return用の変数
+		int result = 0;
+		
+		try (
+				Connection con = getConnection();	// DB接続
+				PreparedStatement pstmt = con.prepareStatement(sql);			// 構文解析
+				){
+			pstmt.setInt(1, B.getId());
+			pstmt.setString(2, B.getName());
+			pstmt.setString(3, B.getAuthor());
+			pstmt.setString(4, B.getPublisher());
+			pstmt.setInt(5, B.getISBN());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} finally {
+			System.out.println(result + "件編集しました。");
+		}
+		return result;
+	}
+	
+
+	// LIKEを使ったキーワード検索(部分一致)
+	public static List<bookDTO> searchbookByName(String keyword){
+		
+		// 実行するSQL
+		String sql = "SELECT * FROM kadai20product WHERE product_name  LIKE ?";
+		
+		// 返却用のLt istインスタンス
+		List<bookDTO> result = new ArrayList<>();
+				
+		try (
+				Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			
+			// %や_はここで文字列結合する。そうすると'%keyword%'となる。
+			pstmt.setString(1, "%" + keyword + "%");
+			
+			// SQL実行！
+			// ResultSetもcloseする必要があるのでtry-with-resources文を使う
+			try (ResultSet rs = pstmt.executeQuery()){
+				
+				// next()がfalseを返すまでループ
+				while(rs.next()) {
+
+					// n行目のデータを取得
+					int bookid = rs.getInt("bookid");
+					int isbn = rs.getInt("isbn");
+					String bookname = rs.getString("bookname");
+					String publisher = rs.getString("publisher");
+					String author = rs.getString("author");
+					String illustrator = rs.getString("illustrator");
+					String category_id = rs.getString("category_id");
+					String booktype = rs.getString("booktype");
+					String imagepass = rs.getString("imagepass");
+
+					// n件目のインスタンスを作成
+					bookDTO book = new bookDTO(bookid, isbn, bookname, publisher, author, illustrator, category_id, booktype, imagepass);
+					
+					// インスタンスをListに追加
+					result.add(book);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+
+		// Listを返却する。0件の場合は空のListが返却される。
+		return result;
+	}
 }
+>>>>>>> 2da16ac2c514b555750b2b86afd6b21e0847e88c
