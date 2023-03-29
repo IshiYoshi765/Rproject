@@ -161,7 +161,7 @@ public class bookDAO {
 	public static List<bookDTO> searchbookByName(String keyword){
 		
 		// 実行するSQL
-		String sql = "SELECT * FROM kadai20product WHERE product_name  LIKE ?";
+		String sql = "SELECT * FROM book WHERE bookname  LIKE ?";
 		
 		// 返却用のLt istインスタンス
 		List<bookDTO> result = new ArrayList<>();
@@ -183,16 +183,12 @@ public class bookDAO {
 
 					// n行目のデータを取得
 					int bookid = rs.getInt("bookid");
-					int isbn = rs.getInt("isbn");
+					String isbn = rs.getString("isbn");
 					String bookname = rs.getString("bookname");
 					String publisher = rs.getString("publisher");
 					String author = rs.getString("author");
 					String illustrator = rs.getString("illustrator");
-<<<<<<< HEAD
-					String category_id = rs.getString("category_id");
-=======
 					int category_id = rs.getInt("category_id");
->>>>>>> 05624700cae3defec36ab6b5ecf55955e75a737f
 					String booktype = rs.getString("booktype");
 					String imagepass = rs.getString("imagepass");
 
@@ -214,4 +210,3 @@ public class bookDAO {
 		return result;
 	}
 }
->>>>>>> 2da16ac2c514b555750b2b86afd6b21e0847e88c

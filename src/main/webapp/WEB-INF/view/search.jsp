@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h2>本の検索</h2>
-	<form action="search" method="post">
+	<form action="Search2" method="post">
 	<input type="text" name="bookname">
 	<input type="submit" value="Search">
 	</form>

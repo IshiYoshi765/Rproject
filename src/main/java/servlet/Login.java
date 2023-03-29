@@ -52,7 +52,7 @@ public class Login extends HttpServlet {
 		String hashedPw = PW.getSafetyPassword(pw, salt);
 		
 		// 入力されたID、ハッシュしたPWに一致するユーザを検索する
-		user account = bookDAO.(mail, hashedPw);
+		user account = bookDAO.login(mail, hashedPw);
 		
 		// 一致するユーザがいなければ、ログイン失敗
 		if(account == null) {

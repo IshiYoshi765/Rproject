@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="dto.book" %>
+<%@ page import="dto.bookDTO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +11,6 @@
 </head>
 <body>
 	<h2>本の検索</h2>
-	<form action="search" method="post">
 	<input type="text" name="bookname">
 	<input type="submit" value="Search">
 	<br>
@@ -26,8 +25,8 @@
 			<th>画像</th>
 		</tr>
 	<%
-	List<book> list = (ArrayList<book>)request.getAttribute("list");
-			for(book s : list) {
+	List<bookDTO> list = (ArrayList<bookDTO>)request.getAttribute("list");
+			for(bookDTO s : list) {
 	%>
 		<tr>
 			<td><%=s.getBookname() %></td>
