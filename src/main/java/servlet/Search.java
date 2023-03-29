@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.bookDAO;
-import dto.book;
+import dto.bookDTO;
 
 /**
  * Servlet implementation class RegisterStudentServlet
@@ -38,7 +38,7 @@ public class Search extends HttpServlet {
 		// フォーム入力内容の取得
 		String keyword = request.getParameter("bookname");
 
-		List<book>LibList=bookDAO.searchbookByName(keyword);
+		List<bookDTO>LibList=bookDAO.searchbookByName(keyword);
 		request.setAttribute("list", LibList);
 
 			String view = "WEB-INF/view/search2.jsp";
