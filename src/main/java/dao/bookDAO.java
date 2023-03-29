@@ -128,7 +128,7 @@ public class bookDAO {
 	
 	public static int updateBook(bookDTO B) {
 		
-		String sql = "UPDATE book SET bookname = ? ,publisher = ?,author = ?,illustrator = ?,booktype = ?  where isbn = ? ";
+		String sql = "UPDATE book SET bookname = ? ,publisher = ?,author = ?,illustrator = ?,booktype = ?  where isbn LIKE ? ";
 		// return用の変数
 		int result = 0;
 		

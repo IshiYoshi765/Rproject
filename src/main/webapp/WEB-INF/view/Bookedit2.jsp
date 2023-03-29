@@ -14,8 +14,9 @@
 <body>
 <div>
 	<h1>編集完了しました。</h1>
-	<form action="Admintop" method="post"></form>
+	<form action="Admintop" method="post">
 	<input type="submit" value="戻る">
+	</form>
 </div>
 </body>
 </html>
