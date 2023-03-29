@@ -10,8 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import dto.book;
+import dto.bookDTO;
 import dto.user;
 import util.PW;
 import util.SALT;
@@ -126,7 +125,6 @@ public class bookDAO {
 		return null;
 	}
 	
-
 	public static int updateBook(bookDTO B) {
 		
 		String sql = "UPDATE book SET  id = ? ,name = ? ,author = ? ,publisher = ? where isbn = ? ";
@@ -153,7 +151,7 @@ public class bookDAO {
 		return result;
 	}
 	
-	
+
 	// LIKEを使ったキーワード検索(部分一致)
 	public static List<book> searchbookByName(String keyword){
 		
