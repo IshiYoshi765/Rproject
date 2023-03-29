@@ -128,7 +128,7 @@ public class bookDAO {
 	
 	public static int updateBook(bookDTO B) {
 		
-		String sql = "UPDATE book SET  bookid = ? ,bookname = ? ,publisher = ?,author = ?,illustrator = ?,booktype = ?  where isbn = ? ";
+		String sql = "UPDATE book SET bookname = ? ,publisher = ?,author = ?,illustrator = ?,booktype = ?  where isbn = ? ";
 		// return用の変数
 		int result = 0;
 		
@@ -137,13 +137,13 @@ public class bookDAO {
 				PreparedStatement pstmt = con.prepareStatement(sql);			// 構文解析
 				){
 		
-			pstmt.setInt(1, B.getBookid());
-			pstmt.setString(2, B.getIsbn());
-			pstmt.setString(3, B.getBookname());
-			pstmt.setString(4, B.getPublisher());
-			pstmt.setString(5, B.getAuthor());
-			pstmt.setString(6, B.getIllustrator());
-			pstmt.setString(7, B.getBooktype());
+
+			pstmt.setString(1, B.getBookname());
+			pstmt.setString(2, B.getPublisher());
+			pstmt.setString(3, B.getAuthor());
+			pstmt.setString(4, B.getIllustrator());
+			pstmt.setString(5, B.getBooktype());
+			pstmt.setString(6, "%"+B.getIsbn()+"%");
 			result = pstmt.executeUpdate();
 		
 		} catch (SQLException e) {
@@ -208,5 +208,7 @@ public class bookDAO {
 
 		// Listを返却する。0件の場合は空のListが返却される。
 		return result;
+		
+
 	}
 }
