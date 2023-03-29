@@ -161,7 +161,7 @@ public class bookDAO {
 	public static List<bookDTO> searchbookByName(String keyword){
 		
 		// 実行するSQL
-		String sql = "SELECT * FROM kadai20product WHERE product_name  LIKE ?";
+		String sql = "SELECT * FROM book WHERE bookname  LIKE ?";
 		
 		// 返却用のLt istインスタンス
 		List<bookDTO> result = new ArrayList<>();
