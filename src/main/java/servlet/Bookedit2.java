@@ -35,22 +35,19 @@ public class Bookedit2 extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		// フォーム入力内容の取得
-		int bookid = Integer.parseInt(request.getParameter("ID"));
-		String ISBN = request.getParameter("ISBN");
+		String ISBN = request.getParameter("isbn");
 		String bookname = request.getParameter("bookname");
 		String publisher = request.getParameter("publisher");
 		String author = request.getParameter("author");
 		String illustrator = request.getParameter("illustrator");
-		int category_id = Integer.parseInt(request.getParameter("category_id"));
 		String booktype = request.getParameter("booktype");
-		String imagepass = request.getParameter("imagepass");
 
 		// 入力された情報を元にインスタンスを生成
-		bookDTO book = new bookDTO(bookid, ISBN, bookname, publisher,author,illustrator, category_id, booktype, imagepass);
-		
+		bookDTO book = new bookDTO(0, ISBN, bookname, publisher,author,illustrator, 0, booktype, booktype);
+		System.out.println("1");
 		// SQL実行
 		int result = bookDAO.updateBook(book);
-		
+		System.out.println("2");
 		if(result == 1) {
 			String view = "WEB-INF/view/Bookedit2.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
