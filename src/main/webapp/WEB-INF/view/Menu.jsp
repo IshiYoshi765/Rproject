@@ -5,9 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet"href="css/user.css">
 <title>ホーム</title>
 </head>
 <body>
+	<div><br><br><br>
 	<a href="Search">商品検索</a><br>
+	</div>
 </body>
 </html>
