@@ -42,9 +42,7 @@ public class RegisterBookdao {
 			pstmt.setString(4, book.getPublisher());
 			pstmt.setString(5, book.getAuthor());
 			pstmt.setString(6, book.getIllustrator());
-			pstmt.setInt(7, book.getCategory_id());
 			pstmt.setString(8, book.getBooktype());
-			pstmt.setString(9, book.getImagepass());
 
 
 			result = pstmt.executeUpdate();
@@ -78,12 +76,10 @@ public class RegisterBookdao {
 					String publisher = rs.getString("publisher");
 					String author = rs.getString("author");
 					String illustrator = rs.getString("illustrator");
-					int category_id = rs.getInt("category_id");
 					String booktype = rs.getString("booktype");
-					String imagepass = rs.getString("imagepass");
 					
 					
-					bookDTO book = new bookDTO(bookid, isbn, bookname, publisher, author, illustrator, category_id, booktype, imagepass);
+					bookDTO book = new bookDTO(bookid, isbn, bookname, publisher, author, illustrator, booktype);
 					list.add(book);
 				}
 			}
