@@ -9,7 +9,7 @@
 <title>管理者ホーム</title>
 </head>
 <body>
-	<div>
+	<div><br><br>
 	<%
 	user account = (user)session.getAttribute("input_data");
 	%>
