@@ -188,12 +188,10 @@ public class bookDAO {
 					String publisher = rs.getString("publisher");
 					String author = rs.getString("author");
 					String illustrator = rs.getString("illustrator");
-					int category_id = rs.getInt("category_id");
 					String booktype = rs.getString("booktype");
-					String imagepass = rs.getString("imagepass");
 
 					// n件目のインスタンスを作成
-					bookDTO book = new bookDTO(bookid, isbn, bookname, publisher, author, illustrator, category_id, booktype, imagepass);
+					bookDTO book = new bookDTO(bookid, isbn, bookname, publisher, author, illustrator, booktype);
 					
 					// インスタンスをListに追加
 					result.add(book);

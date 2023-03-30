@@ -43,7 +43,7 @@ public class Bookedit2 extends HttpServlet {
 		String booktype = request.getParameter("booktype");
 
 		// 入力された情報を元にインスタンスを生成
-		bookDTO book = new bookDTO(0, ISBN, bookname, publisher,author,illustrator, 0, booktype, booktype);
+		bookDTO book = new bookDTO(0, ISBN, bookname, publisher,author,illustrator,  booktype);
 		System.out.println("1");
 		// SQL実行
 		int result = bookDAO.updateBook(book);

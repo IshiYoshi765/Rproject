@@ -24,8 +24,7 @@
 			<th>出版社</th>
 			<th>著者</th>
 			<th>作者</th>
-			<th>新書・旧書</th>
-			<th>画像</th>
+			<th>新・旧</th>
 		</tr>
 	<%
 	List<bookDTO> list = (ArrayList<bookDTO>)request.getAttribute("list");
@@ -37,7 +36,6 @@
 			<td><%=s.getAuthor() %></td>
 			<td><%=s.getIllustrator() %></td>
 			<td><%=s.getBooktype() %></td>
-			<td><%=s.getImagepass() %></td>
 		</tr>
 	<%} %>
 	</table>
