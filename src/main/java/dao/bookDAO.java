@@ -209,4 +209,31 @@ public class bookDAO {
 		
 
 	}
+	// 引数の bookDTO インスタンスを元にデータを1件INSERTするメソッド
+	public static int registerbookDTO(bookDTO book) {
+		
+		String sql = "INSERT INTO book VALUES(default,?, ?, ?, ?, ?, ?)";
+		// return用の変数
+		int result = 0;
+		
+		try (
+				Connection con = getConnection();	// DB接続
+				PreparedStatement pstmt = con.prepareStatement(sql);			// 構文解析
+				){
+			pstmt.setString(1, book.getIsbn());
+			pstmt.setString(2, book.getBookname());
+			pstmt.setString(3, book.getPublisher());
+			pstmt.setString(4, book.getAuthor());
+			pstmt.setString(5, book.getIllustrator());
+			pstmt.setString(6, book.getBooktype());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} finally {
+			System.out.println(result + "件更新しました。");
+		}
+		return result;
+	}
 }

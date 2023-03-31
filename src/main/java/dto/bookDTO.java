@@ -10,7 +10,8 @@ public class bookDTO {
 	private String booktype ;
 	
 	public bookDTO(int bookid, String isbn, String bookname, String publisher, String author, String illustrator,
-			 String booktype) {
+				String booktype) {
+
 		
 		super();
 		this.bookid = bookid;
@@ -69,7 +70,6 @@ public class bookDTO {
 	public void setIllustrator(String illustrator) {
 		this.illustrator = illustrator;
 	}
-
 	public String getBooktype() {
 		return booktype;
 	}
@@ -77,5 +77,4 @@ public class bookDTO {
 	public void setBooktype(String booktype) {
 		this.booktype = booktype;
 	}
-	
 }
