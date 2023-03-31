@@ -15,7 +15,7 @@
 	%>
 	<h3>管理者画面</h3>
 	
-	<a href="">図書登録</a><br>
+	<a href="Company">図書登録</a><br>
 	<a href="Bookdelete">図書データ削除</a><br>
 	<a href="Bookedit">図書データ編集</a><br>
 	<a href="Booklist">図書一覧</a><br>

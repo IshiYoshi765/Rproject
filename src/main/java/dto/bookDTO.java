@@ -7,12 +7,10 @@ public class bookDTO {
 	private String publisher;
 	private String author;
 	private String illustrator ;
-	private int category_id ;
 	private String booktype ;
-	private String imagepass ;
 	
 	public bookDTO(int bookid, String isbn, String bookname, String publisher, String author, String illustrator,
-			int category_id, String booktype, String imagepass) {
+				String booktype) {
 		
 		super();
 		this.bookid = bookid;
@@ -21,9 +19,7 @@ public class bookDTO {
 		this.publisher = publisher;
 		this.author = author;
 		this.illustrator = illustrator;
-		this.category_id = category_id;
 		this.booktype = booktype;
-		this.imagepass = imagepass;
 	}
 
 	public int getBookid() {
@@ -74,13 +70,6 @@ public class bookDTO {
 		this.illustrator = illustrator;
 	}
 
-	public int getCategory_id() {
-		return category_id;
-	}
-
-	public void setCategory_id(int category_id) {
-		this.category_id = category_id;
-	}
 
 	public String getBooktype() {
 		return booktype;
@@ -90,12 +79,5 @@ public class bookDTO {
 		this.booktype = booktype;
 	}
 
-	public String getImagepass() {
-		return imagepass;
-	}
-
-	public void setImagepass(String imagepass) {
-		this.imagepass = imagepass;
-	}
 	
 }
